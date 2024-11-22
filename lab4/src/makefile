@@ -22,7 +22,7 @@ process_memory :
 	$(CC) -o process_memory process_memory.c -w
 
 parallel_sum : utils.o utils.h
-	$(CC) -o parallel_sum parallel_sum.c utils.o $(CFLAGS)
+	$(CC) -o parallel_sum parallel_sum.c utils.o -lpthread $(CFLAGS)
 
 clean :
 	rm utils.o find_min_max.o sequential_min_max parallel_min_max run_smm process_memory parallel_sum
