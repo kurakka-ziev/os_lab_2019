@@ -7,11 +7,11 @@
 #include <sys/types.h>
 #include <unistd.h>
 
-#define SERV_PORT 10050
+// #define SERV_PORT 10050
 #define BUFSIZE 100
 #define SADDR struct sockaddr
 
-int main() {
+int main(int argc, char *argv[]) {
   const size_t kSize = sizeof(struct sockaddr_in);
 
   int lfd, cfd;
@@ -28,12 +28,14 @@ int main() {
   memset(&servaddr, 0, kSize);
   servaddr.sin_family = AF_INET;
   servaddr.sin_addr.s_addr = htonl(INADDR_ANY);
-  servaddr.sin_port = htons(SERV_PORT);
+  servaddr.sin_port = htons((uint16_t)atoi(argv[1]));
+  printf("%d\n", (uint16_t)atoi(argv[1]));
 
   if (bind(lfd, (SADDR *)&servaddr, kSize) < 0) {
     perror("bind");
     exit(1);
   }
+  printf("SERVER starts...\n");
 
   if (listen(lfd, 5) < 0) {
     perror("listen");
